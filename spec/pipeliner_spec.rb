@@ -15,7 +15,7 @@ describe RedisPipeliner do
     total = 0
     values = RedisPipeliner.pipeline redis do |pipe|
       %w(bar foo).each do |key|
-        pipe.enqueue redis.hget("testhash", key) do |result|
+        pipe << redis.hget("testhash", key) do |result|
           total += result.to_i
         end
       end

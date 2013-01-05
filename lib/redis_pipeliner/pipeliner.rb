@@ -12,6 +12,7 @@ module RedisPipeliner
     def enqueue(future, &proc)
       @commands << { future: future, callback: proc }
     end
+    alias_method :<<, :enqueue
 
     # Blocks until all Futures have been realized and returns the values.
     # This should be called _outside_ the Redis.pipelined call.

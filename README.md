@@ -24,9 +24,9 @@ redis.hest "h3", "baz", 3
 # Get the values pipelined and sum them up
 values = RedisPipeliner.pipeline redis do |p|
   # This would normally be 3 round-trips
-  p.enqueue redis.hget("h1", "foo")
-  p.enqueue redis.hget("h2", "bar")
-  p.enqueue redis.hget("h3", "baz")
+  p << redis.hget("h1", "foo")
+  p << redis.hget("h2", "bar")
+  p << redis.hget("h3", "baz")
 end
 values.map(&:to_i).inject(&:+).should == 6
 ```
@@ -37,7 +37,7 @@ You can also pass in a block to be called for each value rather than operating o
 results = []
 RedisPipeliner.pipeline redis do |p|
   [%w(h1 foo), %w(h2 bar), %w(h3 baz)].each do |pair|
-    p.enqueue redis.hget(pair[0], pair[1]) do |value|
+    p << redis.hget(pair[0], pair[1]) do |value|
       # referencing pair inside the block
       results << pair[1] + value
     end
