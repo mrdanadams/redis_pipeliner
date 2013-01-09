@@ -47,3 +47,5 @@ results.first.should == "foo1"
 ```
 
 See the specs for executable examples.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/d76650b6d2792c7739721fa74dd02dd7 "githalytics.com")](http://githalytics.com/mrdanadams/redis_pipeliner)
